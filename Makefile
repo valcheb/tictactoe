@@ -34,7 +34,7 @@ SUOBJF := $(SUOBJF:.s=.o)
 SUOBJF := $(addprefix $(BUILD)/,$(SUOBJF))
 
 #Compile Flags
-CFLAGS := -g -std=c99 -O0
+CFLAGS := -g -std=c99 -O0 -fdata-sections -ffunction-sections
 #CFLAGS += -flto
 CFLAGS += -Wall -Wno-missing-braces -Wextra -Warray-bounds -Wno-unused-parameter
 CFLAGS += $(addprefix -I, $(SOURCED))
@@ -43,7 +43,7 @@ CFLAGS += -mcpu=cortex-m7 -mthumb -mfloat-abi=soft
 CFLAGS += -DSTM32F746xx -DUSE_HAL_DRIVER
 
 #Link Flags
-LDFLAGS := -fdata-sections -ffunction-sections -Wl,--gc-sections,-Map,$(BUILD)/$(TARGET).map -g -T$(LDSCRIPT) --specs=nosys.specs --specs=nano.specs
+LDFLAGS := -Wl,--gc-sections,-Map,$(BUILD)/$(TARGET).map -g -T$(LDSCRIPT) --specs=nosys.specs --specs=nano.specs
 
 #Headers of libraries
 HALLLD := Drivers/STM32F7xx_HAL_Driver
