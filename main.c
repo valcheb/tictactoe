@@ -76,7 +76,6 @@ static void SystemClock_Config(void)
     }
 }
 
-#if 0
 static void LCD_Config(void)
 {
     /* LCD Initialization */
@@ -84,7 +83,6 @@ static void LCD_Config(void)
 
     /* LCD Initialization */
     BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);
-    BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS + (BSP_LCD_GetXSize() * BSP_LCD_GetYSize() * 4));
 
     /* Enable the LCD */
     BSP_LCD_DisplayOn();
@@ -93,49 +91,51 @@ static void LCD_Config(void)
     BSP_LCD_SelectLayer(0);
 
     /* Clear the Background Layer */
-    BSP_LCD_Clear(LCD_COLOR_BLACK);
-
-    /* Select the LCD Foreground Layer  */
-    BSP_LCD_SelectLayer(1);
-
-    /* Clear the Foreground Layer */
-    BSP_LCD_Clear(LCD_COLOR_BLACK);
+    BSP_LCD_Clear(LCD_COLOR_WHITE);
 
     /* Configure the transparency for foreground and background :
        Increase the transparency */
-    BSP_LCD_SetTransparency(0, 0);
-    BSP_LCD_SetTransparency(1, 100);
+    BSP_LCD_SetTransparency(0, 255);
 }
-#endif
 
 int main(void)
 {
     uint32_t i = 0;
 
+    HAL_Init();
     SystemClock_Config();
-    //LCD_Config();
-
+    LCD_Config();
     setup_led();
-    volatile uint32_t clock = HAL_RCC_GetSysClockFreq();
 
     while (1)
     {
         if (i % 2)
         {
             led_off();
+            BSP_LCD_SetTextColor(LCD_COLOR_RED);
+            BSP_LCD_DisplayStringAtLine(5, (uint8_t*)"Sample Text!");
         }
         else
         {
             led_on();
+            BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
+            BSP_LCD_DisplayStringAtLine(5, (uint8_t*)"Sample Text!");
         }
 
-        for (int j = 0; j < 1000000; j++)
-        {
-            __asm volatile("nop");
-        }
+        HAL_Delay(1000);
         ++i;
     }
 
     /* NotReached */
     return 0;
+}
+
+/**
+  * @brief  This function handles SysTick Handler.
+  * @param  None
+  * @retval None
+  */
+void SysTick_Handler(void)
+{
+  HAL_IncTick();
 }
