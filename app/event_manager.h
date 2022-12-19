@@ -53,4 +53,10 @@ void em_emit(em_event_t event, em_arg_t arg);
  */
 void em_handler(void);
 
+/**
+ * @brief Clear internal event manager buffers and counters
+ *
+ */
+void em_clear(void);
+
 #endif /*EVENT_MANAGER_H_*/

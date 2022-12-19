@@ -116,3 +116,8 @@ void em_handler(void)
         elem.name         = EM_EVENT_UNDEFINED;
     }
 }
+
+void em_clear(void)
+{
+    memset(&em_ctx, 0, sizeof(em_ctx));
+}
