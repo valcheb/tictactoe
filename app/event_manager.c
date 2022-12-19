@@ -105,7 +105,7 @@ void em_handler(void)
     {
         if (em_ctx.em_dictionary[em_ctx.search_idx].callback != NULL)
         {
-            em_ctx.em_dictionary[em_ctx.search_idx].callback(elem.arg);
+            em_ctx.em_dictionary[em_ctx.search_idx].callback(&elem.arg);
         }
 
         em_ctx.search_idx++;

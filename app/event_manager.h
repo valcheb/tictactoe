@@ -15,7 +15,7 @@ typedef struct em_arg_s
     uint32_t size;
 } em_arg_t;
 
-typedef void (*em_callback_t)(em_arg_t arg);
+typedef void (*em_callback_t)(const em_arg_t *arg);
 
 typedef struct em_pair_s
 {

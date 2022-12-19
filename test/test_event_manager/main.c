@@ -10,31 +10,31 @@ typedef enum
     EM_EVENT_TEST3,
 } em_test_event_t;
 
-void func_int_arg_1(em_arg_t in)
+void func_int_arg_1(const em_arg_t *in)
 {
     int arg;
-    memcpy(&arg, in.data, sizeof(in.size));
+    memcpy(&arg, in->data, sizeof(in->size));
     printf("FUNC_1 %d\n", arg);
 }
 
-void func_int_arg_2(em_arg_t in)
+void func_int_arg_2(const em_arg_t *in)
 {
     int arg;
-    memcpy(&arg, in.data, sizeof(in.size));
+    memcpy(&arg, in->data, sizeof(in->size));
     printf("FUNC_2 %d\n", arg);
 }
 
-void func_void_arg(em_arg_t a)
+void func_void_arg(const em_arg_t *a)
 {
     //ignore argument
     printf("FUNC VOID\n");
 }
 
 #define STR_SIZE 10
-void func_string_arg(em_arg_t in)
+void func_string_arg(const em_arg_t *in)
 {
     char arg[STR_SIZE];
-    memcpy(&arg, in.data, in.size);
+    memcpy(&arg, in->data, in->size);
     printf("FUNC_3 %s\n", arg);
 }
 
