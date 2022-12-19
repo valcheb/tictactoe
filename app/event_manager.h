@@ -43,7 +43,7 @@ void em_subscribe(em_event_t event, em_callback_t callback);
  * @param event event name to queue.
  * @param arg   argument for callback to queue.
  */
-void em_emit(em_event_t event, em_arg_t arg);
+void em_emit(em_event_t event, const em_arg_t *arg);
 
 /**
  * @brief Handle events from event queue.

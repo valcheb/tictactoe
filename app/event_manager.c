@@ -79,9 +79,19 @@ void em_subscribe(em_event_t event, em_callback_t callback)
     em_ctx.dict_curr_size++;
 }
 
-void em_emit(em_event_t event, em_arg_t arg)
+void em_emit(em_event_t event, const em_arg_t *arg)
 {
-    em_relem_t elem = {.name = event, .arg = arg};
+    em_relem_t elem;
+    elem.name = event;
+    if (arg != NULL)
+    {
+        elem.arg = *arg;
+    }
+    else
+    {
+        memset(&elem.arg.data, 0, EVENT_ARG_SIZE);
+        elem.arg.size = 0;
+    }
 
     if (er_is_full(&em_ctx.em_ring))
     {

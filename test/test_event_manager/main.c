@@ -49,7 +49,7 @@ void test_one_func_one_event()
     em_clear();
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
-    em_emit(EM_EVENT_TEST1,test_arg);
+    em_emit(EM_EVENT_TEST1,&test_arg);
 
     int i = 0;
     while (i < 10)
@@ -71,8 +71,8 @@ void test_two_funcs_two_events()
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
     em_subscribe(EM_EVENT_TEST2, func_int_arg_2);
-    em_emit(EM_EVENT_TEST1,test_arg);
-    em_emit(EM_EVENT_TEST2,test_arg);
+    em_emit(EM_EVENT_TEST1,&test_arg);
+    em_emit(EM_EVENT_TEST2,&test_arg);
 
     int i = 0;
     while (i < 10)
@@ -94,7 +94,7 @@ void test_two_funcs_one_event()
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
     em_subscribe(EM_EVENT_TEST1, func_int_arg_2);
-    em_emit(EM_EVENT_TEST1,test_arg);
+    em_emit(EM_EVENT_TEST1,&test_arg);
 
     int i = 0;
     while (i < 10)
@@ -115,7 +115,7 @@ void test_string_arg()
     em_clear();
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_string_arg);
-    em_emit(EM_EVENT_TEST1,test_str_arg);
+    em_emit(EM_EVENT_TEST1,&test_str_arg);
 
     int i = 0;
     while (i < 10)
@@ -136,10 +136,10 @@ void test_argument_change()
     em_clear();
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
-    em_emit(EM_EVENT_TEST1,test_arg);
+    em_emit(EM_EVENT_TEST1,&test_arg);
     a = 77;
     memcpy(test_arg.data, &a, test_arg.size);
-    em_emit(EM_EVENT_TEST1,test_arg);
+    em_emit(EM_EVENT_TEST1,&test_arg);
 
     int i = 0;
     while (i < 10)
@@ -165,7 +165,7 @@ void test_ring_overflow()
     {
         a = i;
         memcpy(test_arg.data, &a, test_arg.size);
-        em_emit(EM_EVENT_TEST1,test_arg);
+        em_emit(EM_EVENT_TEST1,&test_arg);
     }
 
     int i = 0;
@@ -188,7 +188,7 @@ void test_double_subscribe()
     em_init();
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
     em_subscribe(EM_EVENT_TEST1, func_int_arg_1); //should not be written in a dictionary
-    em_emit(EM_EVENT_TEST1,test_arg); //waiting for single call
+    em_emit(EM_EVENT_TEST1,&test_arg); //waiting for single call
 
     int i = 0;
     while (i < 10)
@@ -208,7 +208,7 @@ void test_no_subscribe()
     printf("Test emit without subscribe\n");
     em_clear();
     em_init();
-    em_emit(EM_EVENT_TEST1,test_arg); //waiting no call
+    em_emit(EM_EVENT_TEST1,&test_arg); //waiting no call
 
     int i = 0;
     while (i < 10)
