@@ -218,6 +218,22 @@ void test_no_subscribe()
     }
 }
 
+void test_void_argument(void)
+{
+    printf("Test void argument\n");
+    em_clear();
+    em_init();
+    em_subscribe(EM_EVENT_TEST1, func_void_arg);
+    em_emit(EM_EVENT_TEST1,NULL);
+
+    int i = 0;
+    while (i < 10)
+    {
+        em_handler();
+        i++;
+    }
+}
+
 int main()
 {
     test_one_func_one_event();
@@ -228,6 +244,7 @@ int main()
     test_double_subscribe();
     test_no_subscribe();
     test_ring_overflow();
+    test_void_argument();
 
     return 0;
 }
