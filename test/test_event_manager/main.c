@@ -10,35 +10,35 @@ typedef enum
     EM_EVENT_TEST3,
 } em_test_event_t;
 
-void test_func1(em_arg_t in)
+void func_int_arg_1(em_arg_t in)
 {
     int arg;
     memcpy(&arg, in.data, sizeof(in.size));
     printf("FUNC_1 %d\n", arg);
 }
 
-void test_func2(em_arg_t in)
+void func_int_arg_2(em_arg_t in)
 {
     int arg;
     memcpy(&arg, in.data, sizeof(in.size));
     printf("FUNC_2 %d\n", arg);
 }
 
-void test_func_void(em_arg_t a)
+void func_void_arg(em_arg_t a)
 {
     //ignore argument
     printf("FUNC VOID\n");
 }
 
 #define STR_SIZE 10
-void test_func3(em_arg_t in)
+void func_string_arg(em_arg_t in)
 {
     char arg[STR_SIZE];
     memcpy(&arg, in.data, in.size);
     printf("FUNC_3 %s\n", arg);
 }
 
-void test_1()
+void test_one_func_one_event()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -46,8 +46,9 @@ void test_1()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test one fucntion and one event\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
     em_emit(EM_EVENT_TEST1,test_arg);
 
     int i = 0;
@@ -58,7 +59,7 @@ void test_1()
     }
 }
 
-void test_1_2()
+void test_two_funcs_two_events()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -66,9 +67,10 @@ void test_1_2()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test two functions and two events\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
-    em_subscribe(EM_EVENT_TEST2, test_func2);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
+    em_subscribe(EM_EVENT_TEST2, func_int_arg_2);
     em_emit(EM_EVENT_TEST1,test_arg);
     em_emit(EM_EVENT_TEST2,test_arg);
 
@@ -80,7 +82,7 @@ void test_1_2()
     }
 }
 
-void test_1_1()
+void test_two_funcs_one_event()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -88,9 +90,10 @@ void test_1_1()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test two functions and one event\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
-    em_subscribe(EM_EVENT_TEST1, test_func2);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_2);
     em_emit(EM_EVENT_TEST1,test_arg);
 
     int i = 0;
@@ -101,7 +104,7 @@ void test_1_1()
     }
 }
 
-void test_3()
+void test_string_arg()
 {
     char str[STR_SIZE] = "hello!";
     em_arg_t test_str_arg;
@@ -109,8 +112,9 @@ void test_3()
     memcpy(test_str_arg.data, &str, test_str_arg.size);
 
     printf("Test string argument\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func3);
+    em_subscribe(EM_EVENT_TEST1, func_string_arg);
     em_emit(EM_EVENT_TEST1,test_str_arg);
 
     int i = 0;
@@ -121,7 +125,7 @@ void test_3()
     }
 }
 
-void test_1_1argument_change()
+void test_argument_change()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -129,8 +133,9 @@ void test_1_1argument_change()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test argument change\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
     em_emit(EM_EVENT_TEST1,test_arg);
     a = 77;
     memcpy(test_arg.data, &a, test_arg.size);
@@ -144,7 +149,7 @@ void test_1_1argument_change()
     }
 }
 
-void test_1_ring_overflow()
+void test_ring_overflow()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -152,8 +157,9 @@ void test_1_ring_overflow()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test emit more than EVENT_RING_SIZE\n"); //EVENT_RING_SIZE == 10
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
 
     for (int i = 0; i < 20; i++)
     {
@@ -170,7 +176,7 @@ void test_1_ring_overflow()
     }
 }
 
-void test_1_1double_sub()
+void test_double_subscribe()
 {
     int a = 10;
     em_arg_t test_arg;
@@ -178,9 +184,10 @@ void test_1_1double_sub()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test double subscribe\n");
+    em_clear();
     em_init();
-    em_subscribe(EM_EVENT_TEST1, test_func1);
-    em_subscribe(EM_EVENT_TEST1, test_func1); //should not be written in a dictionary
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1);
+    em_subscribe(EM_EVENT_TEST1, func_int_arg_1); //should not be written in a dictionary
     em_emit(EM_EVENT_TEST1,test_arg); //waiting for single call
 
     int i = 0;
@@ -199,6 +206,7 @@ void test_no_subscribe()
     memcpy(test_arg.data, &a, test_arg.size);
 
     printf("Test emit without subscribe\n");
+    em_clear();
     em_init();
     em_emit(EM_EVENT_TEST1,test_arg); //waiting no call
 
@@ -212,7 +220,14 @@ void test_no_subscribe()
 
 int main()
 {
-    test_1();
+    test_one_func_one_event();
+    test_two_funcs_one_event();
+    test_two_funcs_two_events();
+    test_string_arg();
+    test_argument_change();
+    test_double_subscribe();
+    test_no_subscribe();
+    test_ring_overflow();
 
     return 0;
 }
