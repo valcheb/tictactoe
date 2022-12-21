@@ -18,7 +18,7 @@ TARGET := ttt
 BUILD := build
 
 #Requared paths
-SOURCED := .
+SOURCED := . app
 CMSISD := Drivers/CMSIS/Core Drivers/CMSIS/Device
 SOURCED += $(CMSISD)
 
