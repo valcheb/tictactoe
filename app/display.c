@@ -1,5 +1,4 @@
 #include "display.h"
-#include "common.h"
 
 static void disp_lcd_init(void)
 {
@@ -26,7 +25,7 @@ static void disp_lcd_init(void)
 void disp_init(void)
 {
     disp_lcd_init();
-    cm_set_cell_length(85);
+    cm_set_cell_length(86);
     cm_set_field_start(10, 10);
 }
 
@@ -44,4 +43,23 @@ void disp_clean_field(void)
     BSP_LCD_DrawVLine(start.x + cell_length,     start.x, 3 * cell_length);
     BSP_LCD_DrawVLine(start.x + 2 * cell_length, start.x, 3 * cell_length);
     BSP_LCD_DrawVLine(start.x + 3 * cell_length, start.x, 3 * cell_length);
+}
+
+void disp_cross(point_t point)
+{
+    uint8_t cell_half = cm_get_cell_length() / 2;
+
+    BSP_LCD_DrawLine(point.x - cell_half,
+                     point.y - cell_half,
+                     point.x + cell_half,
+                     point.y + cell_half);
+    BSP_LCD_DrawLine(point.x + cell_half,
+                     point.y - cell_half,
+                     point.x - cell_half,
+                     point.y + cell_half);
+}
+
+void disp_nought(point_t point)
+{
+    BSP_LCD_DrawCircle(point.x, point.y, cm_get_cell_length() / 2);
 }
