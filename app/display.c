@@ -1,4 +1,6 @@
 #include "display.h"
+#include <stdlib.h>
+#include <string.h>
 
 static void disp_lcd_init(void)
 {
@@ -27,6 +29,7 @@ void disp_init(void)
     disp_lcd_init();
     cm_set_cell_length(86);
     cm_set_field_start(10, 10);
+    cm_set_player_turn_pos(10 + 86 * 3 + 5, 10);
 }
 
 void disp_clean_field(void)
@@ -62,4 +65,23 @@ void disp_cross(point_t point)
 void disp_nought(point_t point)
 {
     BSP_LCD_DrawCircle(point.x, point.y, cm_get_cell_length() / 2);
+}
+
+void disp_player(player_e player)
+{
+    point_t pl_pos = cm_get_player_turn_pos();
+    char player_str[25];
+    char pl_char[2];
+    itoa(player, pl_char, 10);
+
+    memset(player_str, 0, sizeof(player_str));
+
+    strcat(player_str, "Player ");
+    strcat(player_str, &pl_char);
+    strcat(player_str, "`s");
+
+    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+    BSP_LCD_DisplayStringAt(pl_pos.x, pl_pos.y, (uint8_t*)player_str, LEFT_MODE);
+    sFONT *font = BSP_LCD_GetFont();
+    BSP_LCD_DisplayStringAt(pl_pos.x, pl_pos.y + font->Height, (uint8_t*)"turn to play", LEFT_MODE);
 }
