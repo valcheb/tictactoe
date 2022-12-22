@@ -47,7 +47,7 @@ LDFLAGS := -Wl,--gc-sections,-Map,$(BUILD)/$(TARGET).map -g -T$(LDSCRIPT) --spec
 
 #Headers of libraries
 HALLLD := Drivers/STM32F7xx_HAL_Driver
-BSPD := Drivers/BSP/Components/rk043fn48h Drivers/BSP/STM32746G-Discovery
+BSPD := Drivers/BSP/Components/rk043fn48h Drivers/BSP/STM32746G-Discovery Drivers/BSP/Components/ft5336
 CFLAGS += -I$(HALLLD)/Inc $(addprefix -I, $(BSPD))
 
 #List of used library object files
@@ -55,6 +55,8 @@ OBJF += $(BUILD)/stm32f7xx_hal_gpio.o $(BUILD)/stm32f7xx_hal_rcc.o $(BUILD)/stm3
 OBJF += $(BUILD)/stm32f7xx_hal_pwr_ex.o $(BUILD)/stm32f7xx_hal_dma.o $(BUILD)/stm32f7xx_hal_dma2d.o $(BUILD)/stm32f7xx_hal_ltdc.o
 OBJF += $(BUILD)/stm32f7xx_hal_sdram.o $(BUILD)/stm32746g_discovery_sdram.o $(BUILD)/stm32746g_discovery_lcd.o
 OBJF += $(BUILD)/stm32f7xx_ll_fmc.o $(BUILD)/stm32f7xx_hal_rcc_ex.o
+OBJF += $(BUILD)/stm32746g_discovery_ts.o $(BUILD)/ft5336.o $(BUILD)/stm32746g_discovery.o
+OBJF += $(BUILD)/stm32f7xx_hal_i2c.o
 #Paths for compilator
 VPATH := $(SOURCED)
 #path for lib source
