@@ -3,6 +3,13 @@
 
 #include <stdint.h>
 
+typedef enum
+{
+    PLAYER_EMPTY = 0,
+    PLAYER_1,
+    PLAYER_2
+} player_e;
+
 typedef struct
 {
     uint16_t x;
