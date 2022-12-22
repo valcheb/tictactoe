@@ -23,5 +23,6 @@ void cm_set_field_start(uint16_t x, uint16_t y);
 point_t cm_get_field_start(void);
 void cm_set_player_turn_pos(uint16_t x, uint16_t y);
 point_t cm_get_player_turn_pos(void);
+point_t cm_cell_to_point(uint8_t cell);
 
 #endif /*COMMON_H_*/
