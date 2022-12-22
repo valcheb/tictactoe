@@ -85,3 +85,15 @@ void disp_player(player_e player)
     sFONT *font = BSP_LCD_GetFont();
     BSP_LCD_DisplayStringAt(pl_pos.x, pl_pos.y + font->Height, (uint8_t*)"turn to play", LEFT_MODE);
 }
+
+void disp_turn(player_e player, uint8_t cell)
+{
+    if (player == PLAYER_1)
+    {
+        disp_cross(cm_cell_to_point(cell));
+    }
+    else if (player == PLAYER_2)
+    {
+        disp_nought(cm_cell_to_point(cell));
+    }
+}

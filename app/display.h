@@ -11,5 +11,6 @@ void disp_clean_field(void);
 void disp_cross(point_t point);
 void disp_nought(point_t point);
 void disp_player(player_e player);
+void disp_turn(player_e player, uint8_t cell);
 
 #endif /*DISPLAY_H_*/
