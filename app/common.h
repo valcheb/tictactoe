@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define CELL_AMOUNT 9
+
 typedef enum
 {
     PLAYER_EMPTY = 0,
