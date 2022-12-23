@@ -67,33 +67,47 @@ void disp_nought(point_t point)
     BSP_LCD_DrawCircle(point.x, point.y, cm_get_cell_length() / 2);
 }
 
-void disp_player(player_e player)
+void disp_player(const em_arg_t *in)
 {
-    point_t pl_pos = cm_get_player_turn_pos();
+    player_e player;
     char player_str[25];
+    memset(player_str, 0, sizeof(player_str));
     char pl_char[2];
+    point_t pl_pos = cm_get_player_turn_pos();
+    sFONT *font    = BSP_LCD_GetFont();
+
+    if (in == NULL)
+    {
+        return ;
+    }
+    memcpy(&player, in->data, in->size);
+
     itoa(player, pl_char, 10);
 
-    memset(player_str, 0, sizeof(player_str));
-
     strcat(player_str, "Player ");
-    strcat(player_str, &pl_char);
+    strcat(player_str, pl_char);
     strcat(player_str, "`s");
 
     BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
     BSP_LCD_DisplayStringAt(pl_pos.x, pl_pos.y, (uint8_t*)player_str, LEFT_MODE);
-    sFONT *font = BSP_LCD_GetFont();
     BSP_LCD_DisplayStringAt(pl_pos.x, pl_pos.y + font->Height, (uint8_t*)"turn to play", LEFT_MODE);
 }
 
-void disp_turn(player_e player, uint8_t cell)
+void disp_turn(const em_arg_t *in) //EM_EVENT_PLAYER_TURN
 {
-    if (player == PLAYER_1)
+    ttt_turn_t turn;
+    if (in == NULL)
     {
-        disp_cross(cm_cell_to_point(cell));
+        return ;
     }
-    else if (player == PLAYER_2)
+    memcpy(&turn, in->data, in->size);
+
+    if (turn.player == PLAYER_1)
     {
-        disp_nought(cm_cell_to_point(cell));
+        disp_cross(cm_cell_to_point(turn.cell));
+    }
+    else if (turn.player == PLAYER_2)
+    {
+        disp_nought(cm_cell_to_point(turn.cell));
     }
 }
