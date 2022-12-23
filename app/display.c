@@ -95,7 +95,7 @@ void disp_player(const em_arg_t *in)
 
 void disp_turn(const em_arg_t *in) //EM_EVENT_PLAYER_TURN
 {
-    ttt_turn_t turn;
+    turn_t turn;
     if (in == NULL)
     {
         return ;
