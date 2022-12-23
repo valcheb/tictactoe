@@ -6,6 +6,8 @@
 typedef enum
 {
     EM_EVENT_UNDEFINED = 0,
+    EM_EVENT_PRESS,
+    EM_EVENT_CELL_CALCULATED
 } em_event_t;
 
 #define EVENT_ARG_SIZE 1024
