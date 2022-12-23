@@ -13,5 +13,6 @@ void disp_cross(point_t point);
 void disp_nought(point_t point);
 void disp_player(const em_arg_t *in); //EM_EVENT_NEW_TURN
 void disp_turn(const em_arg_t *in); //EM_EVENT_PLAYER_TURN
+void disp_winner(const em_arg_t *in); //EM_EVENT_END_OF_GAME
 
 #endif /*DISPLAY_H_*/
