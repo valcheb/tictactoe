@@ -110,6 +110,11 @@ void em_handler(void)
         er_pop(&em_ctx.em_ring, &elem);
     }
 
+    if (elem.name == EM_EVENT_UNDEFINED)
+    {
+        return ;
+    }
+
     em_ctx.search_idx = em_find(elem.name, em_ctx.search_idx);
     if (em_ctx.search_idx < EVENT_DICTIONARY_SIZE)
     {
