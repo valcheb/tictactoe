@@ -18,6 +18,12 @@ typedef struct
     uint16_t y;
 } point_t;
 
+typedef struct
+{
+    player_e player;
+    uint8_t  cell;
+} turn_t;
+
 //TODO doc
 void cm_set_cell_length(uint16_t length);
 uint8_t cm_get_cell_length(void);
