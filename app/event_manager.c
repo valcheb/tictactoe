@@ -87,7 +87,7 @@ void em_unsubscribe(em_event_t event, em_callback_t callback)
         return ;
     }
 
-    for (int i = idx; i < em_ctx.dict_curr_size; i++)
+    for (uint32_t i = idx; i < em_ctx.dict_curr_size; i++)
     {
         em_ctx.em_dictionary[i].event    = em_ctx.em_dictionary[i + 1].event;
         em_ctx.em_dictionary[i].callback = em_ctx.em_dictionary[i + 1].callback;
