@@ -36,7 +36,7 @@ static uint32_t em_find(em_event_t search_name, uint32_t search_idx)
     return search_idx; //return EVENT_DICTIONARY_SIZE if event not found
 }
 
-static bool em_is_pair_exist(em_event_t event, em_callback_t callback)
+static uint32_t em_get_pair_idx(em_event_t event, em_callback_t callback)
 {
     uint32_t idx = 0;
 
@@ -45,13 +45,13 @@ static bool em_is_pair_exist(em_event_t event, em_callback_t callback)
         if (event    == em_ctx.em_dictionary[idx].event &&
             callback == em_ctx.em_dictionary[idx].callback)
         {
-            return true;
+            return idx;
         }
 
         idx++;
     }
 
-    return false;
+    return idx;
 }
 
 void em_init(void)
@@ -69,7 +69,7 @@ void em_subscribe(em_event_t event, em_callback_t callback)
         return ;
     }
 
-    if (em_is_pair_exist(event, callback))
+    if (em_get_pair_idx(event, callback) < EVENT_DICTIONARY_SIZE) //pair unexist
     {
         return ;
     }
@@ -77,6 +77,24 @@ void em_subscribe(em_event_t event, em_callback_t callback)
     em_ctx.em_dictionary[em_ctx.dict_curr_size].event    = event;
     em_ctx.em_dictionary[em_ctx.dict_curr_size].callback = callback;
     em_ctx.dict_curr_size++;
+}
+
+void em_unsubscribe(em_event_t event, em_callback_t callback)
+{
+    uint32_t idx = em_get_pair_idx(event, callback);
+    if (idx >= EVENT_DICTIONARY_SIZE)
+    {
+        return ;
+    }
+
+    for (int i = idx; i < em_ctx.dict_curr_size; i++)
+    {
+        em_ctx.em_dictionary[i].event    = em_ctx.em_dictionary[i + 1].event;
+        em_ctx.em_dictionary[i].callback = em_ctx.em_dictionary[i + 1].callback;
+    }
+    em_ctx.em_dictionary[em_ctx.dict_curr_size - 1].event    = EM_EVENT_UNDEFINED;
+    em_ctx.em_dictionary[em_ctx.dict_curr_size - 1].callback = NULL;
+    em_ctx.dict_curr_size--;
 }
 
 void em_emit(em_event_t event, const em_arg_t *arg)

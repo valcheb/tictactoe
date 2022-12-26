@@ -44,6 +44,14 @@ void em_init(void);
 void em_subscribe(em_event_t event, em_callback_t callback);
 
 /**
+ * @brief Delete pair of event name and event callback function from dictionary.
+ *
+ * @param event    event name to dictionary.
+ * @param callback callback function to dictionary.
+ */
+void em_unsubscribe(em_event_t event, em_callback_t callback);
+
+/**
  * @brief Write event name and event argument to event queue.
  *
  * @param event event name to queue.
