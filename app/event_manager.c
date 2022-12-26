@@ -69,7 +69,7 @@ void em_subscribe(em_event_t event, em_callback_t callback)
         return ;
     }
 
-    if (em_get_pair_idx(event, callback) < EVENT_DICTIONARY_SIZE) //pair unexist
+    if (em_get_pair_idx(event, callback) < EVENT_DICTIONARY_SIZE) //pair exist
     {
         return ;
     }
