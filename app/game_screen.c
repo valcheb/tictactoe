@@ -1,8 +1,12 @@
 #include "game_screen.h"
 #include "display.h"
+#include "button.h"
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+
+static button_t play_again;
+static button_t main_menu;
 
 static uint8_t gs_hit_cell(point_t point)
 {
