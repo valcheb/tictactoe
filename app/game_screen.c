@@ -83,6 +83,17 @@ void gs_press_control(const em_arg_t *in) //EM_EVENT_PRESS
     }
 }
 
+void gs_new_game_view(void)
+{
+    disp_clear();
+    disp_clean_field();
+    disp_button(&play_again);
+    button_show(&play_again);
+
+    disp_button(&main_menu);
+    button_show(&main_menu);
+}
+
 void gs_player_view(const em_arg_t *in)
 {
     player_e player;
