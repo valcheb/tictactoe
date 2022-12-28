@@ -34,6 +34,25 @@ static uint8_t gs_hit_cell(point_t point)
     return CELL_AMOUNT;
 }
 
+void game_screen_init(void)
+{
+    //hard code game screen view and control elements
+    cm_set_cell_length(86);
+    cm_set_field_start(10, 10);
+    cm_set_player_turn_pos(10 + 86 * 3 + 5, 10);
+
+    point_t pos;
+    pos.x = 280;
+    pos.y = 75;
+    char play_again_label[] = "Play again";
+    button_init(&play_again, &pos, 180, 33, play_again_label, sizeof(play_again_label));
+
+    pos.x = 280;
+    pos.y = 130;
+    char main_menu_label[] = "Main menu";
+    button_init(&main_menu, &pos, 165, 33, main_menu_label, sizeof(main_menu_label));
+}
+
 void gs_press_control(const em_arg_t *in) //EM_EVENT_PRESS
 {
     point_t  point;
