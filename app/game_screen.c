@@ -81,6 +81,16 @@ void gs_press_control(const em_arg_t *in) //EM_EVENT_PRESS
             em_emit(EM_EVENT_CELL_CALCULATED, &out);
         }
     }
+
+    if (!button_is_hidden(&play_again) && button_is_pressed(&play_again, point))
+    {
+        em_emit(EM_EVENT_PLAY_AGAIN_PRESSED, NULL);
+    }
+
+    if (!button_is_hidden(&main_menu) && button_is_pressed(&main_menu, point))
+    {
+        em_emit(EM_EVENT_MAIN_MENU_PRESSED, NULL);
+    }
 }
 
 void gs_new_game_view(void)
