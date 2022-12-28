@@ -26,9 +26,11 @@ static void disp_lcd_init(void)
 void disp_init(void)
 {
     disp_lcd_init();
-    cm_set_cell_length(86);
-    cm_set_field_start(10, 10);
-    cm_set_player_turn_pos(10 + 86 * 3 + 5, 10);
+}
+
+void disp_clear(void)
+{
+    BSP_LCD_Clear(BSP_LCD_GetBackColor());
 }
 
 void disp_clean_field(void)

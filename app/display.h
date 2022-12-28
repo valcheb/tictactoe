@@ -8,6 +8,7 @@
 
 //TODO doc
 void disp_init(void);
+void disp_clear(void);
 void disp_clean_field(void);
 void disp_cross(point_t point);
 void disp_nought(point_t point);
