@@ -135,6 +135,7 @@ void ttt_handler(const em_arg_t *in) //EM_EVENT_CELL_CALCULATED
         out.size = sizeof(winner);
         memcpy(out.data, &winner, out.size);
         em_emit(EM_EVENT_END_OF_GAME, &out);
+        em_unsubscribe(EM_EVENT_CELL_CALCULATED, ttt_handler);
     }
     else
     {
