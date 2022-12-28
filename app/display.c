@@ -65,3 +65,12 @@ void disp_nought(point_t point)
 {
     BSP_LCD_DrawCircle(point.x, point.y, cm_get_cell_length() / 2);
 }
+
+void disp_button(const button_t *button)
+{
+    BSP_LCD_DisplayStringAt(button_get_pos(button).x + 5, button_get_pos(button).y + 5, (uint8_t*)button->label, LEFT_MODE);
+    BSP_LCD_DrawRect(button_get_pos(button).x,
+                     button_get_pos(button).y,
+                     button_get_hsize(button),
+                     button_get_vsize(button));
+}
