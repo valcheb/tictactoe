@@ -5,7 +5,7 @@
 #include "stm32f7xx.h"
 #include "stm32746g_discovery_ts.h"
 
-#define DOUBLE_TAP_PAUSE 50
+#define DOUBLE_TAP_PAUSE 100
 
 static TS_StateTypeDef TS_State;
 
