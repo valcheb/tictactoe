@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <string.h>
 
-#define EVENT_DICTIONARY_SIZE 10
+#define EVENT_DICTIONARY_SIZE 20
 #define EVENT_RING_SIZE 10
 
 static struct
